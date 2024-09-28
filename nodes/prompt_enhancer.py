@@ -61,7 +61,7 @@ def get_response(prompt, num_tokens, keep_on_gpu):
             break
 
     if not is_model_found:
-        if not os.path.exists(model_gguf_name):
+        if not os.path.exists(model_path):
             if not os.path.exists(model_dir_path):
                 os.makedirs(model_dir_path)
 
