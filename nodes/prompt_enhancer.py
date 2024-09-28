@@ -65,10 +65,7 @@ def get_response(prompt, num_tokens, keep_on_gpu):
             if not os.path.exists(model_dir_path):
                 os.makedirs(model_dir_path)
 
-            data = download(model_gguf_source_url, model_path)
-
-            with open(model_gguf_name, mode="wb") as f:
-                f.write(data)
+            download(model_gguf_source_url, model_path)
 
         ollama.create(model=model_name, modelfile=model_file)
 
