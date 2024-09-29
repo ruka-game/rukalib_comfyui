@@ -3,7 +3,7 @@ import subprocess
 import os
 import requests
 from tqdm import tqdm
-
+import folder_paths
 
 def download(url: str, fname: str, chunk_size=1024):
     resp = requests.get(url, stream=True)
@@ -20,15 +20,15 @@ def download(url: str, fname: str, chunk_size=1024):
             bar.update(size)
 
 
-model_dir_path = "ComfyUI/models/rukalib/ollama"
+model_dir_path = os.path.join(folder_paths.models_dir, "rukalib/ollama")
 model_gguf_name = "HODACHI-EZO-Humanities-9B-gemma-2-it-IQ4_XS.gguf"
-model_path = "/".join([model_dir_path, model_gguf_name])
+model_path = os.path.join(model_dir_path, model_gguf_name)
 
 model_gguf_source_url = "https://hf.rst.im/mmnga/HODACHI-EZO-Humanities-9B-gemma-2-it-gguf/resolve/main/HODACHI-EZO-Humanities-9B-gemma-2-it-IQ4_XS.gguf"
 
 model_name = "prompt_enhancer"
 model_file = f'''
-FROM  ./{model_path}
+FROM  {model_path}
 
 # set the temperature to 1 [higher is more creative, lower is more coherent]
 PARAMETER temperature 1.0
