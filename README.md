@@ -1,4 +1,6 @@
-requires ollama
+# ComfyUI RukaLib
+
+ComfyUI custom node of my various utilities
 
 ## ノード
 
