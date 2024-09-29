@@ -1,6 +1,6 @@
 # ComfyUI RukaLib
 
-ComfyUI custom node of my various utilities
+My utilities for comfy (WIP / ollama is required for LLM nodes)
 
 ## ノード
 
