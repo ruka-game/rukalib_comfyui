@@ -76,6 +76,10 @@ def get_response(prompt, num_tokens, keep_on_gpu):
                 "role": "system",
                 "content": f"次のユーザの入力から想像を膨らませ、内容に沿って拡張した{num_tokens}トークン程度の英語の動画生成プロンプトをただ一つ生成し、その本文のみを返答せよ",
             },
+            {
+                "role": "system",
+                "content": f"○○などを参考に提示せよという内容で示された例はあくまでも例示なので極力他の類似例も挙げること。プログラムやテンプレートを使わずに自分で選択すること",
+            },
             {"role": "user", "content": prompt},
         ],
         keep_alive=-1 if keep_on_gpu else 0,
@@ -163,6 +167,30 @@ class RukaPromptEnhancer:
                         "default": True,
                     },
                 ),
+                "random_hairstyle": (
+                    "BOOLEAN",
+                    {
+                        "default": True,
+                    },
+                ),
+                "random_haircolor": (
+                    "BOOLEAN",
+                    {
+                        "default": True,
+                    },
+                ),
+                "random_eyecolor": (
+                    "BOOLEAN",
+                    {
+                        "default": True,
+                    },
+                ),
+                "random_costume": (
+                    "BOOLEAN",
+                    {
+                        "default": True,
+                    },
+                ),
                 "seed": (
                     "INT",
                     {
@@ -204,6 +232,10 @@ class RukaPromptEnhancer:
         boy,
         androgynous,
         upper_chest,
+        random_hairstyle,
+        random_haircolor,
+        random_eyecolor,
+        random_costume,
         seed,
         keep_on_gpu,
     ):
@@ -229,7 +261,15 @@ class RukaPromptEnhancer:
             tags.append("androgynous")
         if upper_chest:
             tags.append("upper chest")
-
+        if random_hairstyle:
+            tags.append("髪型をボブ/ロング/ミディアムなどを参考に自由な発想でひとつ提示せよ")
+        if random_haircolor:
+            tags.append("髪色を金/黒/茶などを参考に自由な発想でひとつ提示せよ")
+        if random_eyecolor:
+            tags.append("瞳の色を青/緑/赤/ピンク/茶などを参考に自由な発想でひとつ提示せよ")
+        if random_costume:
+            tags.append("場面に合った衣装を洋服/和服/Tシャツ/スーツ/コートなどを参考に自由な発想でひとつ提示せよ")
+            
         prompt = ", ".join(tags)
         enhanced_prompt = get_response(prompt, num_tokens, keep_on_gpu)
 
