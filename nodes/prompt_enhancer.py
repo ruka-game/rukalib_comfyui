@@ -46,12 +46,7 @@ def get_response(prompt, num_tokens, keep_on_gpu):
     try:
         model_list = ollama.list()
     except Exception:
-        subprocess.call("ollama serve")
-
-    try:
-        model_list = ollama.list()
-    except Exception:
-        print("ollamaをインストールしてください")
+        print("ollamaをインストール/起動してください")
 
     is_model_found = False
 
